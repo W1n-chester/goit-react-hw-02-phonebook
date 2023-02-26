@@ -1,6 +1,7 @@
-import React from "react";
+import React from 'react';
 import { nanoid } from 'nanoid';
-import { Form } from "./Form/Form";
+import { Form } from './Form/Form';
+import { ContactList } from './Contact-List/Contact-list';
 export class App extends React.Component {
   state = {
     contacts: [
@@ -10,34 +11,42 @@ export class App extends React.Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    
   };
-  
-  addContact = data => {
-    const{name, number}=data
-    console.log(name, number)
-    this.setState(prevState => {
-      return {
-        contact: prevState.contacts.push({id:nanoid(),name:name, number:number})
-      };
-    }
-      
-    )
-  }
- 
-  
+  deleteContact = (id) => {
+    this.setState(prevState => (
+    { contacts: prevState.contacts.filter(contact=>contact.id!==id)}
+  ))
+}
+  addContact = ({ name, number }) => {
+    const newContact = { id: nanoid(), name, number };
+
+    this.state.contacts.find(contact => contact.name === newContact.name)
+      ? alert(`${newContact.name} is already in contacts`)
+      : this.setState(prevState => ({
+          contacts: [...prevState.contacts, newContact],
+        }));
+  };
+  changeFilter = e => {
+    const { name, value } = e.currentTarget;
+    this.setState({ [name]: value });
+  };
   render() {
+    const { filter, contacts } = this.state;
+    const normFilter = filter.toLocaleLowerCase();
+    const visibleContacts = contacts.filter(contact =>
+      contact.name.toLocaleLowerCase().includes(normFilter)
+    );
     return (
       <div>
         <h2>Phonebook</h2>
-        <Form addContact={this.addContact } />
-        <h2>Contacts</h2>
-        <ul>
-          {this.state.contacts.map(contact => (
-            <li key={contact.id}>{contact.name}</li>
-          ))}
-        </ul>
+        <Form onAddContact={this.addContact} />
+        <ContactList
+          filter={filter}
+          onFilter={this.changeFilter}
+          contacts={visibleContacts}
+          onDeleteContact={this.deleteContact}
+        />
       </div>
     );
   }
-};
+}

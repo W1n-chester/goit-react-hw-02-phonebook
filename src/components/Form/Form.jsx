@@ -12,7 +12,7 @@ export class Form extends React.Component {
   };
   formSubmit = e => {
     e.preventDefault();
-    this.props.addContact(this.state);
+    this.props.onAddContact(this.state);
     this.reset();
   };
   reset = () => {
