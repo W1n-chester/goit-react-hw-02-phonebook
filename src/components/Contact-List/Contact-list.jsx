@@ -1,8 +1,9 @@
 import { Filter } from "../Filter/Filter";
 import { Item } from "../ContactsItem/ContactsItem"
+import { Container } from './Contact-List.styled';
 export const ContactList = ({ filter, onFilter, contacts, onDeleteContact }) => {
   return (
-    <>
+    <Container>
       <h2>Contacts</h2>
       <Filter filter={filter} onFilter={onFilter} />
       <ul>
@@ -17,6 +18,6 @@ export const ContactList = ({ filter, onFilter, contacts, onDeleteContact }) => 
           </li>
         ))}
       </ul>
-    </>
+    </Container>
   );
 };

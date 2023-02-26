@@ -1,10 +1,13 @@
+import { Contact } from './ContactItem.styled';
 export const Item = ({ name, number, onDeleteContact, id }) => {
   return (
-    <p>
-      <span>{name}:</span> <span> {number}</span>{' '}
+    <Contact>
+      <span>
+        <span>{name}:</span> <span> {number}</span>
+      </span>
       <button type="button" onClick={() => onDeleteContact(id)}>
         Delete
       </button>
-    </p>
+    </Contact>
   );
 };

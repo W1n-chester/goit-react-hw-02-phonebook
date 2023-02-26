@@ -1,6 +1,7 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
 import { Form } from './Form/Form';
+import { Phonebook, Contacts } from './App.styled';
 import { ContactList } from './Contact-List/Contact-list';
 export class App extends React.Component {
   state = {
@@ -37,8 +38,9 @@ export class App extends React.Component {
       contact.name.toLocaleLowerCase().includes(normFilter)
     );
     return (
-      <div>
+      <Phonebook>
         <h2>Phonebook</h2>
+        <Contacts>
         <Form onAddContact={this.addContact} />
         <ContactList
           filter={filter}
@@ -46,7 +48,8 @@ export class App extends React.Component {
           contacts={visibleContacts}
           onDeleteContact={this.deleteContact}
         />
-      </div>
+        </Contacts>
+      </Phonebook>
     );
   }
 }

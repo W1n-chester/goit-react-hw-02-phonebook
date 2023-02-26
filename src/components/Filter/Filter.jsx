@@ -1,8 +1,9 @@
+import { Title } from './Filter.styled';
 export const Filter = ({ filter, onFilter }) => {
     return (
-      <>
-        <p>Find contacts by name</p>
+      <Title>
+        Find contacts by name
         <input type="text" name="filter" value={filter} onChange={onFilter} />
-      </>
+      </Title>
     );
 }
